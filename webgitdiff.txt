@@ -1,0 +1,264 @@
+[1mdiff --git a/.gitignore b/.gitignore[m
+[1mindex 4fe12aa..fabf295 100644[m
+[1m--- a/.gitignore[m
+[1m+++ b/.gitignore[m
+[36m@@ -10,6 +10,7 @@[m
+ # Ignore the default SQLite database.[m
+ # /db/*.sqlite3[m
+ # /db/*.sqlite3-journal[m
+[32m+[m[32m/db/*.sqlite3-*[m
+ [m
+ # Ignore all logfiles and tempfiles.[m
+ /log/*[m
+[1mdiff --git a/Gemfile b/Gemfile[m
+[1mindex c18c21e..68ed044 100644[m
+[1m--- a/Gemfile[m
+[1m+++ b/Gemfile[m
+[36m@@ -4,13 +4,13 @@[m [mgit_source(:github) { |repo| "https://github.com/#{repo}.git" }[m
+ ruby '2.6.5'[m
+ [m
+ # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'[m
+[31m-gem 'rails', '~> 6.0.0'[m
+[32m+[m[32mgem 'rails', '~> 6.0.2', '>= 6.0.2.1'[m
+ # Use sqlite3 as the database for Active Record[m
+ [m
+ # Use Puma as the app server[m
+[31m-gem 'puma', '~> 3.11'[m
+[32m+[m[32mgem 'puma', '~> 4.1'[m
+ # Use SCSS for stylesheets[m
+[31m-gem 'sass-rails', '~> 5'[m
+[32m+[m[32mgem 'sass-rails', '>= 6'[m
+ # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker[m
+ gem 'webpacker', '~> 4.0'[m
+ # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder[m
+[1mdiff --git a/Gemfile.lock b/Gemfile.lock[m
+[1mindex f472883..a9c4b2c 100644[m
+[1m--- a/Gemfile.lock[m
+[1m+++ b/Gemfile.lock[m
+[36m@@ -256,8 +256,10 @@[m [mGEM[m
+     pry-rails (0.3.9)[m
+       pry (>= 0.10.4)[m
+     public_suffix (4.0.3)[m
+[31m-    puma (3.12.2)[m
+[31m-    puma (3.12.2-java)[m
+[32m+[m[32m    puma (4.3.1)[m
+[32m+[m[32m      nio4r (~> 2.0)[m
+[32m+[m[32m    puma (4.3.1-java)[m
+[32m+[m[32m      nio4r (~> 2.0)[m
+     rack (2.2.2)[m
+     rack-contrib (2.1.0)[m
+       rack (~> 2.0)[m
+[36m@@ -336,17 +338,8 @@[m [mGEM[m
+     rspec-support (3.9.2)[m
+     ruby_dep (1.5.0)[m
+     safe_yaml (1.0.5)[m
+[31m-    sass (3.7.4)[m
+[31m-      sass-listen (~> 4.0.0)[m
+[31m-    sass-listen (4.0.0)[m
+[31m-      rb-fsevent (~> 0.9, >= 0.9.4)[m
+[31m-      rb-inotify (~> 0.9, >= 0.9.7)[m
+[31m-    sass-rails (5.1.0)[m
+[31m-      railties (>= 5.2.0)[m
+[31m-      sass (~> 3.1)[m
+[31m-      sprockets (>= 2.8, < 4.0)[m
+[31m-      sprockets-rails (>= 2.0, < 4.0)[m
+[31m-      tilt (>= 1.1, < 3)[m
+[32m+[m[32m    sass-rails (6.0.0)[m
+[32m+[m[32m      sassc-rails (~> 2.1, >= 2.1.1)[m
+     sassc (2.2.1)[m
+       ffi (~> 1.9)[m
+     sassc (2.2.1-x64-mingw32)[m
+[36m@@ -365,7 +358,7 @@[m [mGEM[m
+     spring-watcher-listen (2.0.1)[m
+       listen (>= 2.7, < 4.0)[m
+       spring (>= 1.2, < 3.0)[m
+[31m-    sprockets (3.7.2)[m
+[32m+[m[32m    sprockets (4.0.0)[m
+       concurrent-ruby (~> 1.0)[m
+       rack (> 1, < 3)[m
+     sprockets-es6 (0.9.2)[m
+[36m@@ -445,13 +438,13 @@[m [mDEPENDENCIES[m
+   meta_request[m
+   pg[m
+   pry-rails[m
+[31m-  puma (~> 3.11)[m
+[32m+[m[32m  puma (~> 4.1)[m
+   rack-timeout[m
+[31m-  rails (~> 6.0.0)[m
+[32m+[m[32m  rails (~> 6.0.2, >= 6.0.2.1)[m
+   rails_12factor[m
+   rspec-html-matchers[m
+   rspec-rails[m
+[31m-  sass-rails (~> 5)[m
+[32m+[m[32m  sass-rails (>= 6)[m
+   spring[m
+   spring-watcher-listen (~> 2.0.0)[m
+   sqlite3 (~> 1.4.1)[m
+[1mdiff --git a/README.md b/README.md[m
+[1mindex cfe81c7..d70fb5c 100644[m
+[1m--- a/README.md[m
+[1m+++ b/README.md[m
+[36m@@ -1,4 +1,4 @@[m
+[31m-# Working Web Git[m
+[32m+[m[32m# Non Working Web Git[m
+ [m
+ ## Standard Workflow[m
+ [m
+[1mdiff --git a/app/views/layouts/application.html.erb b/app/views/layouts/application.html.erb[m
+[1mindex 11a6ca3..8ee563e 100644[m
+[1m--- a/app/views/layouts/application.html.erb[m
+[1m+++ b/app/views/layouts/application.html.erb[m
+[36m@@ -1,7 +1,7 @@[m
+ <!DOCTYPE html>[m
+ <html>[m
+   <head>[m
+[31m-    <title>WorkingWebGit</title>[m
+[32m+[m[32m    <title>NonWorkingWebGit</title>[m
+     <%= csrf_meta_tags %>[m
+ [m
+     <!-- Expand the number of characters we can use in the document beyond basic ASCII 🎉 -->[m
+[1mdiff --git a/config/application.rb b/config/application.rb[m
+[1mindex 5b59b69..a963a00 100644[m
+[1m--- a/config/application.rb[m
+[1m+++ b/config/application.rb[m
+[36m@@ -19,7 +19,7 @@[m [mrequire "sprockets/railtie"[m
+ # you've limited to :test, :development, or :production.[m
+ Bundler.require(*Rails.groups)[m
+ [m
+[31m-module WorkingWebGit[m
+[32m+[m[32mmodule NonWorkingWebGit[m
+   class Application < Rails::Application[m
+     # Initialize configuration defaults for originally generated Rails version.[m
+     config.load_defaults 6.0[m
+[1mdiff --git a/config/credentials.yml.enc b/config/credentials.yml.enc[m
+[1mindex c587879..ee13419 100644[m
+[1m--- a/config/credentials.yml.enc[m
+[1m+++ b/config/credentials.yml.enc[m
+[36m@@ -1 +1 @@[m
+[31m-k2ejn7LHyW6NOusNjigXTDsmX9MaOgclr4bW2goRaRjcdTQ7e5e/cWWUPdnPTfm4DF7kEymosnwJIfZxLN/t1S9FUbRxCp7DEhNGzGEGsiQByRAbysUoY2QWTTjYe+uzGsAEqIhRRcvnpJfhsSsrx72XOQgagHbd6Y9Wycj5ODyTcw6Oq2Rwq8lMDe8EhvjORRbVW0DqRDRRQmttxzcxp9FBpR52qTTBHHWp7qTYh+yqj9RJP3aBPn7wO4l08aaLf4/QuAvKD5okSEugS0hIL47UjbYG2sR1wHz66q6DTmua+tYd9/VGa3ISJo27OXAocxxHk+mGdPi4Zjt20Bnrk5Do2G98YriaNNNUyGUIbCoPWmgxGCutlo9shCvEbIuxx0PsZcHI+fuypLM0XEFR47Ddz9Ho7A1xwP7O--ES5Mg2pJKcXax+rN--wWYxLIx+Ay9qh02g8MGqjg==[m
+\ No newline at end of file[m
+[32m+[m[32m56YUUt5Egbev8RY8shkaO9R798slI6ZpRqJWpOZAjl63St3GtLmXVe2WvwT6MALt+9WV0/PFWDYODCoHrxVKK/yaW+76wsA7dpMHxuQypkMifePBeCA+auDwdT2qAusGdHWcL+D38RO5KhwhmGKcp4/KJ0fKm/FnpnrIPq97uP1QPC+TLtgc5ljV3hi7VBO0qjLfbCN5C9vwb+HNBk0xH/Lo6xfvgHz2cvDADWljdunrzEQ6MCiDnNjybgg5I52QU5y6TXKFurxsjxHMe+lJaI9SxBqLJZmFfNV0MRnvD3yb6T/VhpiexeGXGUBwmG3cZUUSB/FV4B2V6uwBsVZAOKwuz9+T85/6BBNf3ASBQsEmh2x0SatO8qNbw9zmV4jUoHq4zSGzwEN7F3Dg9rcMj5hUR0dtHtAGkM4c--PNWsIpNbeRZbJ+VI--dQvuVZ51i+wlIV8jaDsaOw==[m
+\ No newline at end of file[m
+[1mdiff --git a/config/environments/production.rb b/config/environments/production.rb[m
+[1mindex 96bba5b..a17e017 100644[m
+[1m--- a/config/environments/production.rb[m
+[1m+++ b/config/environments/production.rb[m
+[36m@@ -53,7 +53,7 @@[m [mRails.application.configure do[m
+ [m
+   # Use a real queuing backend for Active Job (and separate queues per environment).[m
+   # config.active_job.queue_adapter     = :resque[m
+[31m-  # config.active_job.queue_name_prefix = "working_web_git_production"[m
+[32m+[m[32m  # config.active_job.queue_name_prefix = "non_working_web_git_production"[m
+ [m
+   config.action_mailer.perform_caching = false[m
+ [m
+[1mdiff --git a/config/environments/test.rb b/config/environments/test.rb[m
+[1mindex de83a77..1d62e91 100644[m
+[1m--- a/config/environments/test.rb[m
+[1m+++ b/config/environments/test.rb[m
+[36m@@ -5,7 +5,7 @@[m
+ [m
+ Rails.application.configure do[m
+   # Settings specified here will take precedence over those in config/application.rb.[m
+[31m-  [m
+[32m+[m
+   config.cache_classes = false[m
+ [m
+   # Do not eager load code on boot. This avoids loading your whole application[m
+[1mdiff --git a/config/initializers/active_admin.rb b/config/initializers/active_admin.rb[m
+[1mindex 169b4f2..0b735a5 100644[m
+[1m--- a/config/initializers/active_admin.rb[m
+[1m+++ b/config/initializers/active_admin.rb[m
+[36m@@ -9,7 +9,7 @@[m [mActiveAdmin.setup do |config|[m
+   # Set the title that is displayed on the main layout[m
+   # for each of the active admin pages.[m
+   #[m
+[31m-  config.site_title = "Working Web Git"[m
+[32m+[m[32m  config.site_title = "Non Working Web Git"[m
+ [m
+   # Set the link url for the title. For example, to take[m
+   # users to your main site. Defaults to no link.[m
+[1mdiff --git a/config/initializers/devise.rb b/config/initializers/devise.rb[m
+[1mindex 6cc6186..d010fba 100644[m
+[1m--- a/config/initializers/devise.rb[m
+[1m+++ b/config/initializers/devise.rb[m
+[36m@@ -8,7 +8,7 @@[m [mDevise.setup do |config|[m
+   # confirmation, reset password and unlock tokens in the database.[m
+   # Devise will use the `secret_key_base` as its `secret_key`[m
+   # by default. You can change it below and use your own secret key.[m
+[31m-  # config.secret_key = '4f123e63ca263e893bf9a0118ffa4574a8ebefee1767c519246b48dacfa398cccdd39d7659619b833150b601cabb77264e51ff266279c4e42397d34d364cf27e'[m
+[32m+[m[32m  # config.secret_key = '84f3b2963eece74e704dc529aee0558df9d427a44caf37ed697aa943b593a490caa25ee931fdc0cca404a3d15e0263e0e6d28ddde5a7feb78d249fd08b6e0d25'[m
+ [m
+   # ==> Controller configuration[m
+   # Configure the parent class to the devise controllers.[m
+[36m@@ -114,7 +114,7 @@[m [mDevise.setup do |config|[m
+   config.stretches = Rails.env.test? ? 1 : 11[m
+ [m
+   # Set up a pepper to generate the hashed password.[m
+[31m-  # config.pepper = 'f86e593ec9cb45fc1ffb0678b0484ac1dcf18c6d374565d9b358c462aa3baa1da437120d8544d086a28bb1ae8ed0308647e42c0e759fb952d167321aa511b36d'[m
+[32m+[m[32m  # config.pepper = 'fc42154913d72ad16bb03265a6abe958f62969627c6934c140f1362f95e48011af19444ab44ec6b27bbe9a549853aef352c3cc88c26b6690a0dc97812d83ea9f'[m
+ [m
+   # Send a notification to the original email when the user's email is changed.[m
+   # config.send_email_changed_notification = false[m
+[1mdiff --git a/db/development.sqlite3 b/db/development.sqlite3[m
+[1mindex f34ce9c..1d65ded 100644[m
+Binary files a/db/development.sqlite3 and b/db/development.sqlite3 differ
+[1mdiff --git a/db/migrate/20200213235650_devise_create_admin_users.rb b/db/migrate/20200213235952_devise_create_admin_users.rb[m
+[1msimilarity index 100%[m
+[1mrename from db/migrate/20200213235650_devise_create_admin_users.rb[m
+[1mrename to db/migrate/20200213235952_devise_create_admin_users.rb[m
+[1mdiff --git a/db/migrate/20200213235659_create_active_admin_comments.rb b/db/migrate/20200213235959_create_active_admin_comments.rb[m
+[1msimilarity index 100%[m
+[1mrename from db/migrate/20200213235659_create_active_admin_comments.rb[m
+[1mrename to db/migrate/20200213235959_create_active_admin_comments.rb[m
+[1mdiff --git a/db/schema.rb b/db/schema.rb[m
+[1mindex 914dfb3..9a1e9be 100644[m
+[1m--- a/db/schema.rb[m
+[1m+++ b/db/schema.rb[m
+[36m@@ -10,7 +10,7 @@[m
+ #[m
+ # It's strongly recommended that you check this file into your version control system.[m
+ [m
+[31m-ActiveRecord::Schema.define(version: 2020_02_13_235659) do[m
+[32m+[m[32mActiveRecord::Schema.define(version: 2020_02_13_235959) do[m
+ [m
+   create_table "active_admin_comments", force: :cascade do |t|[m
+     t.string "namespace"[m
+[1mdiff --git a/package.json b/package.json[m
+[1mindex cfa35dd..c0999d3 100644[m
+[1m--- a/package.json[m
+[1m+++ b/package.json[m
+[36m@@ -1,9 +1,9 @@[m
+ {[m
+[31m-  "name": "working_web_git",[m
+[32m+[m[32m  "name": "non_working_web_git",[m
+   "private": true,[m
+   "dependencies": {[m
+[31m-    "@rails/activestorage": "^6.0.0-alpha",[m
+[31m-    "@rails/ujs": "^6.0.0-alpha",[m
+[32m+[m[32m    "@rails/activestorage": "^6.0.0",[m
+[32m+[m[32m    "@rails/ujs": "^6.0.0",[m
+     "@rails/webpacker": "4.2.2"[m
+   },[m
+   "version": "0.1.0",[m
+[1mdiff --git a/yarn.lock b/yarn.lock[m
+[1mindex 15e0e58..8d2e62b 100644[m
+[1m--- a/yarn.lock[m
+[1m+++ b/yarn.lock[m
+[36m@@ -750,14 +750,14 @@[m
+   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"[m
+   integrity sha512-5a6wqoJV/xEdbRNKVo6I4hO3VjyDq//8q2f9I6PBAvMesJHFauXDorcNCsr9RzvsZnaWi5NYCcfyqP1QeFHFbw==[m
+ [m
+[31m-"@rails/activestorage@^6.0.0-alpha":[m
+[32m+[m[32m"@rails/activestorage@^6.0.0":[m
+   version "6.0.2"[m
+   resolved "https://registry.yarnpkg.com/@rails/activestorage/-/activestorage-6.0.2.tgz#3882da2716d1f21091840fc52b71091d406a9c43"[m
+   integrity sha512-X0uGBLNsSKvVw5n93rH7k+7rbxc3Cq7p0ShiQbrk1cN0xflGjElzEJRY3okZZHsKkCV+h6rFCk0BOBVrLSrJ0A==[m
+   dependencies:[m
+     spark-md5 "^3.0.0"[m
+ [m
+[31m-"@rails/ujs@^6.0.0-alpha":[m
+[32m+[m[32m"@rails/ujs@^6.0.0":[m
+   version "6.0.2"[m
+   resolved "https://registry.yarnpkg.com/@rails/ujs/-/ujs-6.0.2.tgz#8d32452d51c5e115374a218fb5475803dc17f4c0"[m
+   integrity sha512-KSQjJG8yzSWC1IT+UtFQglefABU37hpJ7uAz39K1/iWtoaJaI9ydGIaxxpJBT/PmYv4kS6lCSjXq13DELeJocw==[m
